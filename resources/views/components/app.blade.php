@@ -64,8 +64,11 @@
     <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
 
     <!-- Sidebar -->
+    <!-- Sidebar -->
     <aside id="sidebar"
-        class="fixed left-0 top-0 h-full w-64 bg-white shadow-xl z-50 sidebar-transition transform lg:transform-none">
+        class="fixed left-0 top-0 h-full w-64 bg-white shadow-xl z-50 sidebar-transition transform lg:transform-none flex flex-col">
+
+        <!-- Header -->
         <div class="flex items-center justify-between p-6 border-b border-slate-200">
             <h1 class="text-xl font-bold text-slate-800">My App</h1>
             <button id="close-sidebar" class="lg:hidden text-slate-500 hover:text-slate-700">
@@ -76,7 +79,8 @@
             </button>
         </div>
 
-        <nav class="p-4 custom-scrollbar overflow-y-auto h-full">
+        <!-- Menu + Logout -->
+        <nav class="p-4 custom-scrollbar overflow-y-auto flex-1 flex flex-col justify-between">
             <ul class="space-y-2">
                 <li>
                     <a href="{{ route('items.index') }}"
@@ -89,7 +93,6 @@
                         Items
                     </a>
                 </li>
-
                 <li>
                     <a href="{{ route('users.index') }}"
                         class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('users.*') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
@@ -101,9 +104,22 @@
                         Users
                     </a>
                 </li>
-
-                <!-- Add more menu items here -->
             </ul>
+
+            <!-- Logout -->
+            <div class="mt-6 border-t border-slate-200 pt-4">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                        class="flex items-center w-full px-4 py-3 text-red-600 rounded-lg hover:bg-red-50 transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-9V7"></path>
+                        </svg>
+                        Logout
+                    </button>
+                </form>
+            </div>
         </nav>
     </aside>
 
