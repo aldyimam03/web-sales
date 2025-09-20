@@ -89,6 +89,19 @@
                         Items
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{ route('users.index') }}"
+                        class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('users.*') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5.121 17.804A7 7 0 0112 15a7 7 0 016.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z">
+                            </path>
+                        </svg>
+                        Users
+                    </a>
+                </li>
+
                 <!-- Add more menu items here -->
             </ul>
         </nav>
