@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -36,9 +37,7 @@ class UserController extends Controller
                 'password' => 'required|min:6|confirmed',
             ]);
 
-            if (isset($validated['password'])) {
-                $validated['password'] = bcrypt($validated['password']);
-            }
+            $validated['password'] = Hash::make($validated['password']);
 
             if (User::where('email', $validated['email'])->exists()) {
                 return redirect()
@@ -87,9 +86,12 @@ class UserController extends Controller
                 'password' => 'nullable|min:6|confirmed',
             ]);
 
-            if (isset($validated['password'])) {
-                $validated['password'] = bcrypt($validated['password']);
+            if (!empty($validated['password'])) {
+                $validated['password'] = Hash::make($validated['password']);
+            } else {
+                unset($validated['password']); 
             }
+
 
             $user->fill($validated);
 
@@ -105,7 +107,7 @@ class UserController extends Controller
             return redirect()->route('users.index')->with('success', 'User berhasil diperbarui!');
         } catch (\Throwable $th) {
             return redirect()
-                ->route('items.index')
+                ->route('users.index')
                 ->with('error', $th->getMessage());
         }
     }
