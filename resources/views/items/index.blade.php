@@ -28,6 +28,18 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-400 rounded-lg fade-in">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p class="text-red-700 font-medium">{{ session('error') }}</p>
+                </div>
+            </div>
+        @endif
+
         <!-- DataTable -->
         <div class="bg-white rounded-2xl shadow-xl p-6 fade-in">
             <div class="overflow-x-auto">
