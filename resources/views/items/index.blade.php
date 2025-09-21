@@ -65,7 +65,7 @@
                                 <td class="px-6 py-4">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                                 <td class="px-6 py-4">
                                     @if ($item->gambar)
-                                        <img src="{{ asset('storage/' . $item->gambar) }}"
+                                        <img src="{{ $item->gambar_url }}"
                                             class="h-12 w-12 object-cover rounded-lg border">
                                     @else
                                         <span class="text-slate-400 italic">Tidak ada</span>
