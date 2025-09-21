@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SaleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,5 +37,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
         Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    });
+
+    Route::prefix('/sales')->group(function () {
+        Route::get('/', [SaleController::class, 'index'])->name('sales.index');
+        Route::get('/create', [SaleController::class, 'create'])->name('sales.create');
+        Route::post('/', [SaleController::class, 'store'])->name('sales.store');
+        Route::get('/{sale}', [SaleController::class, 'show'])->name('sales.show');
+        Route::get('/{sale}/edit', [SaleController::class, 'edit'])->name('sales.edit');
+        Route::put('/{sale}', [SaleController::class, 'update'])->name('sales.update');
+        Route::delete('/{sale}', [SaleController::class, 'destroy'])->name('sales.destroy');
     });
 });
