@@ -46,7 +46,9 @@ class UserController extends Controller
                     ->with('error', 'Email sudah terdaftar!');
             }
 
-            User::create($validated);
+            $user = User::create($validated);
+
+            $user->assignRole('user');
 
             return redirect()
                 ->route('users.index')
