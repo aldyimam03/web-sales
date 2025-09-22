@@ -55,9 +55,11 @@ class RolePermissionSeeder extends Seeder
             'dashboard.view',
             'sale.view',
             'sale.create',
+            'sale.update',
             'sale.delete',
             'payment.view',
             'payment.create',
+            'payment.update',
             'payment.delete',
             'item.view',
         ]);
