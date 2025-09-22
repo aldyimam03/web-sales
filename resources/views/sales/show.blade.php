@@ -17,7 +17,10 @@
                     <span class="font-semibold">Status:</span>
                     <span
                         class="px-3 py-1 rounded-lg text-xs font-medium
-                        {{ $sale->status == 'Sudah Dibayar' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                    @if ($sale->status == 'Belum Dibayar') bg-red-100 text-red-800
+                                        @elseif ($sale->status == 'Sudah Dibayar') bg-green-100 text-green-800
+                                        @else bg-yellow-100 text-yellow-800 @endif
+                                        ">
                         {{ $sale->status }}
                     </span>
                 </p>
