@@ -73,6 +73,7 @@
                 <table id="sales-table" class="min-w-full text-sm text-slate-950">
                     <thead>
                         <tr class="bg-slate-200 text-slate-700 uppercase text-xs">
+                            <th class="px-6 py-3 text-center">No.</th>
                             <th class="px-6 py-3 text-center">Kode</th>
                             <th class="px-6 py-3 text-center">Tanggal</th>
                             <th class="px-6 py-3 text-center">Total</th>
@@ -83,6 +84,8 @@
                     <tbody class="divide-y divide-slate-200">
                         @forelse ($sales as $sale)
                             <tr class="hover:bg-slate-100 transition">
+                                <td class="px-6 py-4 text-center">
+                                    {{ $loop->iteration + $sales->perPage() * ($sales->currentPage() - 1) }}</td>
                                 <td class="px-6 py-4 text-center">{{ $sale->kode_penjualan }}</td>
                                 <td class="px-6 py-4 text-center">{{ $sale->tanggal_penjualan->format('d M Y') }}</td>
                                 <td class="px-6 py-4 text-center">Rp
@@ -124,6 +127,10 @@
                 </table>
             </div>
         </div>
+    </div>
+
+    <div class="mt-6">
+        {{ $sales->links() }}
     </div>
 
     @push('scripts')

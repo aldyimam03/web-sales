@@ -66,6 +66,7 @@
                 <table id="payments-table" class="min-w-full text-sm">
                     <thead>
                         <tr class="bg-slate-200 text-slate-700 uppercase text-xs">
+                            <th class="px-6 py-3 text-center">No.</th>
                             <th class="px-6 py-3 text-center">Kode</th>
                             <th class="px-6 py-3 text-center">Tanggal</th>
                             <th class="px-6 py-3 text-center">Jumlah</th>
@@ -80,6 +81,7 @@
                                 $sisaTagihan = $payment->sale->total_harga - $totalBayar;
                             @endphp
                             <tr>
+                                <td class="px-6 py-4 text-center">{{ $loop->iteration + $payments->perPage() * ($payments->currentPage() - 1) }}</td>
                                 <td class="px-6 py-4 text-center">{{ $payment->kode_pembayaran }}</td>
                                 <td class="px-6 py-4 text-center">{{ $payment->tanggal_bayar->format('d M Y') }}</td>
                                 <td class="px-6 py-4 text-right">Rp {{ number_format($payment->jumlah, 0, ',', '.') }}
@@ -108,6 +110,10 @@
                 </table>
             </div>
         </div>
+    </div>
+
+    <div class="mt-6">
+        {{ $payments->links() }}
     </div>
 
     @push('scripts')

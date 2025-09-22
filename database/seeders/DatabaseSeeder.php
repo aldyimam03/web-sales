@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ItemSeeder::class,
             RolePermissionSeeder::class,
+            // SalesSeeder::class,
+            // PaymentsSeeder::class
         ]);
     }
 }

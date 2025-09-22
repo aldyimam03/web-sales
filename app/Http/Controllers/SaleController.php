@@ -30,7 +30,7 @@ class SaleController extends Controller
                 $query->whereDate('tanggal_penjualan', '<=', $request->end_date);
             }
 
-            $sales = $query->get();
+            $sales = $query->paginate(10);
 
             return view('sales.index', compact('sales'));
         } catch (\Exception $e) {
