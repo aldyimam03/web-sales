@@ -82,67 +82,76 @@
         <!-- Menu + Logout -->
         <nav class="p-4 custom-scrollbar overflow-y-auto flex-1 flex flex-col justify-between">
             <ul class="space-y-2">
-                <li>
-                    <a href="{{ route('dashboard') }}"
-                        class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('dashboard') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6 mr-3">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                        </svg>
-                        Dashboard
-                    </a>
-                </li>
 
-                <li>
-                    <a href="{{ route('sales.index') }}"
-                        class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('sales.*') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6 mr-3">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                        </svg>
-                        Sales
-                    </a>
-                </li>
+                @can('dashboard.view')
+                    <li>
+                        <a href="{{ route('dashboard') }}"
+                            class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('dashboard') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6 mr-3">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+                @endcan
 
+                @can('sale.view')
+                    <li>
+                        <a href="{{ route('sales.index') }}"
+                            class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('sales.*') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6 mr-3">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                            </svg>
+                            Sales
+                        </a>
+                    </li>
+                @endcan
 
-                <li>
-                    <a href="{{ route('payments.index') }}"
-                        class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('payments.*') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6 mr-3">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
-                        </svg>
-                        Payments
-                    </a>
-                </li>
+                @can('payment.view')
+                    <li>
+                        <a href="{{ route('payments.index') }}"
+                            class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('payments.*') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6 mr-3">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                            </svg>
+                            Payments
+                        </a>
+                    </li>
+                @endcan
 
+                @can('item.view')
+                    <li>
+                        <a href="{{ route('items.index') }}"
+                            class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('items.*') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6 mr-3">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M6 6.878V6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 0 0 4.5 9v.878m13.5-3A2.25 2.25 0 0 1 19.5 9v.878m0 0a2.246 2.246 0 0 0-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0 1 21 12v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6c0-.98.626-1.813 1.5-2.122" />
+                            </svg>
+                            Item
+                        </a>
+                    </li>
+                @endcan
 
-                <li>
-                    <a href="{{ route('items.index') }}"
-                        class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('items.*') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6 mr-3">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M6 6.878V6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 0 0 4.5 9v.878m13.5-3A2.25 2.25 0 0 1 19.5 9v.878m0 0a2.246 2.246 0 0 0-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0 1 21 12v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6c0-.98.626-1.813 1.5-2.122" />
-                        </svg>
-                        Item
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('users.index') }}"
-                        class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('users.*') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6 mr-3">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                        </svg>
-                        Users
-                    </a>
-                </li>
+                @role('admin')
+                    <li>
+                        <a href="{{ route('users.index') }}"
+                            class="flex items-center px-4 py-3 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors {{ request()->routeIs('users.*') ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-500' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6 mr-3">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                            </svg>
+                            Users
+                        </a>
+                    </li>
+                @endrole
             </ul>
 
             <!-- Logout -->
@@ -218,13 +227,6 @@
             toggleBtn.addEventListener('click', openSidebar);
             closeBtn.addEventListener('click', closeSidebar);
             overlay.addEventListener('click', closeSidebar);
-
-            // Close sidebar on escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeSidebar();
-                }
-            });
 
             // Initialize sidebar state on mobile
             if (window.innerWidth < 1024) {

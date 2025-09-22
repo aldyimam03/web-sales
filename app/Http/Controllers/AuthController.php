@@ -52,7 +52,7 @@ class AuthController extends Controller
             if (Auth::attempt($credentials, $remember)) {
                 $request->session()->regenerate();
                 return redirect()
-                    ->intended(route('items.index'))
+                    ->intended(route('dashboard'))
                     ->with('success', 'Berhasil login!');
             }
 

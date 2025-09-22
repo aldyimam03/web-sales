@@ -6,13 +6,16 @@
                 <h1 class="text-3xl font-bold text-slate-800 mb-2">Daftar Item</h1>
                 <p class="text-slate-600">List item yang tersedia di sistem</p>
             </div>
-            <a href="{{ route('items.create') }}"
-                class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                </svg>
-                Tambah Item
-            </a>
+
+            @can('item.create')
+                <a href="{{ route('items.create') }}"
+                    class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Tambah Item
+                </a>
+            @endcan
         </div>
 
         <!-- Flash Messages -->
@@ -51,7 +54,10 @@
                             <th class="px-6 py-3 text-left">Nama</th>
                             <th class="px-6 py-3 text-left">Harga</th>
                             <th class="px-6 py-3 text-left">Gambar</th>
-                            <th class="px-6 py-3 text-center">Aksi</th>
+
+                            @if (auth()->user()->can('item.update') || auth()->user()->can('item.delete'))
+                                <th class="px-6 py-3 text-center">Aksi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-200">
@@ -71,18 +77,26 @@
                                         <span class="text-slate-400 italic">Tidak ada</span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 text-center space-x-2">
-                                    <a href="{{ route('items.edit', $item->id) }}"
-                                        class="px-3 py-1 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500">Edit</a>
-                                    <form action="{{ route('items.destroy', $item->id) }}" method="POST"
-                                        class="inline-block"
-                                        onsubmit="return confirm('Yakin ingin menghapus item ini?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600">Delete</button>
-                                    </form>
-                                </td>
+
+                                @if (auth()->user()->can('item.update') || auth()->user()->can('item.delete'))
+                                    <td class="px-6 py-4 text-center space-x-2">
+                                        @can('item.update')
+                                            <a href="{{ route('items.edit', $item->id) }}"
+                                                class="px-3 py-1 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500">Edit</a>
+                                        @endcan
+
+                                        @can('item.delete')
+                                            <form action="{{ route('items.destroy', $item->id) }}" method="POST"
+                                                class="inline-block"
+                                                onsubmit="return confirm('Yakin ingin menghapus item ini?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600">Delete</button>
+                                            </form>
+                                        @endcan
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
@@ -103,12 +117,20 @@
 
         <script>
             $(document).ready(function() {
+                // Hitung jumlah kolom untuk DataTables
+                var columnCount = $('#items-table thead tr th').length;
+
                 $('#items-table').DataTable({
                     responsive: true,
                     pageLength: 10,
                     language: {
                         url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json'
-                    }
+                    },
+                    // Disable sorting pada kolom aksi jika ada
+                    columnDefs: columnCount > 5 ? [{
+                        "orderable": false,
+                        "targets": -1
+                    }] : []
                 });
             });
         </script>
