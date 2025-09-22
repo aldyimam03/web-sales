@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SaleController;
 
 Route::get('/', function () {
@@ -47,5 +48,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/{sale}/edit', [SaleController::class, 'edit'])->name('sales.edit');
         Route::put('/{sale}', [SaleController::class, 'update'])->name('sales.update');
         Route::delete('/{sale}', [SaleController::class, 'destroy'])->name('sales.destroy');
+    });
+
+    Route::prefix('/payments')->group(function () {
+        Route::get('/', [PaymentController::class, 'index'])->name('payments.index');
+        Route::get('/create', [PaymentController::class, 'create'])->name('payments.create');
+        Route::post('/', [PaymentController::class, 'store'])->name('payments.store');
+        Route::get('/{payment}', [PaymentController::class, 'show'])->name('payments.show');
+        Route::get('/{payment}/edit', [PaymentController::class, 'edit'])->name('payments.edit');
+        Route::put('/{payment}', [PaymentController::class, 'update'])->name('payments.update');
+        Route::delete('/{payment}', [PaymentController::class, 'destroy'])->name('payments.destroy');
     });
 });

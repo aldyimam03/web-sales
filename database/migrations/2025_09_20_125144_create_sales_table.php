@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('kode_penjualan')->unique();
             $table->date('tanggal_penjualan');
-            $table->enum('status', ['Belum Dibayar', 'Sudah Dibayar'])->default('Belum Dibayar');
+            $table->enum('status', ['Belum Dibayar', 'Belum Dibayar Sepenuhnya', 'Sudah Dibayar'])->default('Belum Dibayar');
             $table->decimal('total_harga', 15, 2)->default(0);
             $table->timestamps();
         });

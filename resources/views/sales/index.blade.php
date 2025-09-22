@@ -85,11 +85,15 @@
                             <tr class="hover:bg-slate-100 transition">
                                 <td class="px-6 py-4 text-center">{{ $sale->kode_penjualan }}</td>
                                 <td class="px-6 py-4 text-center">{{ $sale->tanggal_penjualan->format('d M Y') }}</td>
-                                <td class="px-6 py-4 text-center">Rp {{ number_format($sale->total_harga, 0, ',', '.') }}</td>
+                                <td class="px-6 py-4 text-center">Rp
+                                    {{ number_format($sale->total_harga, 0, ',', '.') }}</td>
                                 <td class="px-6 py-4 text-center">
                                     <span
-                                        class="px-3 py-1 rounded-full text-xs font-medium
-                                        {{ $sale->status == 'Sudah Dibayar' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                                        class="px-3 py-1 rounded-full text-xs font-medium  
+                                        @if ($sale->status == 'Belum Dibayar') bg-red-100 text-red-800
+                                        @elseif ($sale->status == 'Sudah not-last:Dibayar') bg-green-100 text-green-800
+                                        @else bg-yellow-100 text-yellow-800 @endif
+                                        ">
                                         {{ $sale->status }}
                                     </span>
                                 </td>

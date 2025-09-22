@@ -24,4 +24,30 @@ class Sale extends Model
     {
         return $this->hasMany(SaleItem::class);
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function getTotalDibayarAttribute()
+    {
+        return $this->payments()->sum('jumlah');
+    }
+
+    public function getSisaPembayaranAttribute()
+    {
+        return $this->total_harga - $this->total_dibayar;
+    }
+
+    public function updateStatus()
+    {
+        if ($this->total_dibayar == 0) {
+            $this->update(['status' => 'Belum Dibayar']);
+        } elseif ($this->total_dibayar < $this->total_harga) {
+            $this->update(['status' => 'Belum Dibayar Sepenuhnya']);
+        } else {
+            $this->update(['status' => 'Sudah Dibayar']);
+        }
+    }
 }
