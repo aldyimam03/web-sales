@@ -57,7 +57,7 @@ class PaymentController extends Controller
                 // Validasi jumlah pembayaran
                 if ($request->jumlah > $sisaTagihan) {
                     throw new \Exception(
-                        'Jumlah pembayaran melebihi sisa tagihan. Sisa tagihan: Rp ' .
+                        'Jumlah pembayaran melebihi sisa pembayaran. Sisa pembayaran: Rp ' .
                             number_format($sisaTagihan, 0, ',', '.')
                     );
                 }
