@@ -14,7 +14,8 @@ class ItemController extends Controller
     public function index()
     {
         $items = Item::latest()->paginate(10);
-        return view('items.index', compact('items'));
+        $pageTitle = 'Halaman Item';
+        return view('items.index', compact('items', 'pageTitle'));
     }
 
     /**

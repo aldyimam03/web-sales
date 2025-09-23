@@ -31,8 +31,9 @@ class SaleController extends Controller
             }
 
             $sales = $query->paginate(10);
+            $pageTitle = 'Halaman Penjualan';
 
-            return view('sales.index', compact('sales'));
+            return view('sales.index', compact('sales', 'pageTitle'));
         } catch (\Exception $e) {
             return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }

@@ -1,4 +1,4 @@
-<x-app>
+<x-app :pageTitle="$pageTitle">
 
     <!-- Flash Messages -->
     @if (session('success'))

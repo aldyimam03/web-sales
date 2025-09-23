@@ -1,3 +1,4 @@
+@props(['pageTitle' => 'Dashboard'])
 <!DOCTYPE html>
 <html lang="id">
 

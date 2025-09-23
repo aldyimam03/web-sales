@@ -22,7 +22,9 @@ class PaymentController extends Controller
 
         $payments = $query->paginate(10);
 
-        return view('payments.index', compact('payments'));
+        $pageTitle = 'Halaman Pembayaran';
+
+        return view('payments.index', compact('payments', 'pageTitle'));
     }
 
     /**

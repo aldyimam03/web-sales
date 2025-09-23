@@ -1,4 +1,4 @@
-<x-app>
+<x-app :pageTitle="$pageTitle">
     <div class="max-w-6xl mx-auto">
         <!-- Header -->
         <div class="mb-8 flex justify-between items-center">
