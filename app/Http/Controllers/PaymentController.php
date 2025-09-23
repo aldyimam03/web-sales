@@ -54,7 +54,6 @@ class PaymentController extends Controller
                 $totalSudahDibayar = $sale->payments()->sum('jumlah');
                 $sisaTagihan = $sale->total_harga - $totalSudahDibayar;
 
-                // Validasi jumlah pembayaran
                 if ($request->jumlah > $sisaTagihan) {
                     throw new \Exception(
                         'Jumlah pembayaran melebihi sisa pembayaran. Sisa pembayaran: Rp ' .
@@ -72,7 +71,6 @@ class PaymentController extends Controller
                     'catatan' => $request->catatan,
                 ]);
 
-                // Update status penjualan
                 $this->updateSaleStatus($sale);
             });
 
@@ -157,10 +155,8 @@ class PaymentController extends Controller
                     throw new \Exception('Tidak ada perubahan data yang disimpan.');
                 }
 
-                // Update payment
                 $payment->update($newData);
 
-                // Update status penjualan
                 $this->updateSaleStatus($sale);
             });
 
@@ -198,7 +194,7 @@ class PaymentController extends Controller
      */
     private function updateSaleStatus(Sale $sale)
     {
-        // Refresh data sale untuk memastikan data terbaru
+        // Refresh data 
         $sale->refresh();
 
         // Hitung total yang sudah dibayar

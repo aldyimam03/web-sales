@@ -58,8 +58,8 @@
                                 <td class="px-6 py-4 text-center">
                                     {{ $loop->iteration + $users->perPage() * ($users->currentPage() - 1) }}
                                 </td>
-                                <td class="px-6 py-4 text-center">{{ $user->name }}</td>
-                                <td class="px-6 py-4 text-center">{{ $user->email }}</td>
+                                <td class="px-6 py-4 text-left">{{ $user->name }}</td>
+                                <td class="px-6 py-4 text-left">{{ $user->email }}</td>
                                 <td class="px-6 py-4 text-center space-x-2">
                                     <a href="{{ route('users.edit', $user->id) }}"
                                         class="px-3 py-1 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500">Edit</a>
@@ -85,19 +85,87 @@
     </div>
 
     @push('scripts')
-        <!-- jQuery & DataTables -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 
+        <style>
+            /* Hilangkan garis bawaan */
+            table.dataTable.no-footer {
+                border-bottom: none;
+            }
+
+            table.dataTable thead th {
+                border-bottom: none !important;
+            }
+
+            /* Header styling */
+            #users-table thead th {
+                text-align: center !important;
+                font-weight: 700;
+                background-color: #e2e8f0;
+                /* slate-200 */
+                color: #334155;
+                /* slate-700 */
+                padding: 12px;
+            }
+
+            /* Isi tabel */
+            /* #users-table tbody td {
+                text-align: center !important;
+                vertical-align: middle !important;
+                padding: 12px;
+            } */
+
+            /* Search box styling */
+            .dataTables_filter {
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .dataTables_filter label {
+                font-weight: 600;
+                color: #334155;
+                /* slate-700 */
+            }
+
+            .dataTables_filter input {
+                padding: 0.5rem 1rem;
+                border: 1px solid #cbd5e1;
+                /* slate-300 */
+                border-radius: 0.75rem;
+                /* rounded-xl */
+                outline: none;
+                transition: all 0.2s;
+            }
+
+            .dataTables_filter input:focus {
+                border-color: #3b82f6;
+                /* blue-500 */
+                box-shadow: 0 0 0 2px #bfdbfe;
+                /* ring-blue-200 */
+            }
+        </style>
+
         <script>
             $(document).ready(function() {
+                var columnCount = $('#users-table thead tr th').length;
+
                 $('#users-table').DataTable({
-                    responsive: true,
-                    pageLength: 10,
+                    paging: false, 
+                    info: false,
+                    searching: true,
+                    ordering: true,
                     language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json'
-                    }
+                        search: "Cari : ",
+                        searchPlaceholder: "Ketik untuk mencari..."
+                    },
+                    columnDefs: columnCount > 5 ? [{
+                        "orderable": false,
+                        "targets": -1
+                    }] : []
                 });
             });
         </script>

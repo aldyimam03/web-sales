@@ -18,23 +18,17 @@ class DashboardController extends Controller
 
         $sales = $query->with('items.item')->get();
 
-        // Debug data
-        logger('Total sales: ' . $sales->count());
-        logger('Sales data: ' . $sales->pluck('id'));
-
         // Widgets
         $totalTransactions = $sales->count();
         $totalRevenue = $sales->sum('total_harga');
         $totalQty = $sales->flatMap(fn($s) => $s->items)->sum('quantity');
 
-        // Chart: Revenue per Month - PERBAIKI GROUPING
         $revenueByMonth = $sales->groupBy(function ($sale) {
             return \Carbon\Carbon::parse($sale->tanggal_penjualan)->format('Y-m');
         })->map(function ($monthSales) {
             return $monthSales->sum('total_harga');
         });
 
-        // Jika tidak ada data, beri nilai default
         if ($revenueByMonth->isEmpty()) {
             $revenueByMonth = [
                 'labels' => ['No Data'],
@@ -49,11 +43,11 @@ class DashboardController extends Controller
             ];
         }
 
-        // Chart: Qty by Item - PERBAIKI DENGAN NULL SAFETY
+        // Chart: Qty by Item 
         $qtyByItem = $sales->flatMap(function ($sale) {
             return $sale->items->map(function ($item) {
                 return [
-                    'item_name' => $item->item->nama ?? 'Unknown Item',
+                    'item_name' => $item->item->nama ?? 'Item Tidak Diketahui',
                     'quantity' => $item->quantity
                 ];
             });

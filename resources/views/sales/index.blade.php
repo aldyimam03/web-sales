@@ -88,7 +88,7 @@
                                     {{ $loop->iteration + $sales->perPage() * ($sales->currentPage() - 1) }}</td>
                                 <td class="px-6 py-4 text-center">{{ $sale->kode_penjualan }}</td>
                                 <td class="px-6 py-4 text-center">{{ $sale->tanggal_penjualan->format('d M Y') }}</td>
-                                <td class="px-6 py-4 text-center">Rp
+                                <td class="px-6 py-4 text-right">Rp
                                     {{ number_format($sale->total_harga, 0, ',', '.') }}</td>
                                 <td class="px-6 py-4 text-center">
                                     <span
@@ -134,19 +134,87 @@
     </div>
 
     @push('scripts')
-        <!-- jQuery & DataTables -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 
+        <style>
+            /* Hilangkan garis bawaan */
+            table.dataTable.no-footer {
+                border-bottom: none;
+            }
+
+            table.dataTable thead th {
+                border-bottom: none !important;
+            }
+
+            /* Header styling */
+            #sales-table thead th {
+                text-align: center !important;
+                font-weight: 700;
+                background-color: #e2e8f0;
+                /* slate-200 */
+                color: #334155;
+                /* slate-700 */
+                padding: 12px;
+            }
+
+            /* Isi tabel */
+            /* #users-table tbody td {
+                    text-align: center !important;
+                    vertical-align: middle !important;
+                    padding: 12px;
+                } */
+
+            /* Search box styling */
+            .dataTables_filter {
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .dataTables_filter label {
+                font-weight: 600;
+                color: #334155;
+                /* slate-700 */
+            }
+
+            .dataTables_filter input {
+                padding: 0.5rem 1rem;
+                border: 1px solid #cbd5e1;
+                /* slate-300 */
+                border-radius: 0.75rem;
+                /* rounded-xl */
+                outline: none;
+                transition: all 0.2s;
+            }
+
+            .dataTables_filter input:focus {
+                border-color: #3b82f6;
+                /* blue-500 */
+                box-shadow: 0 0 0 2px #bfdbfe;
+                /* ring-blue-200 */
+            }
+        </style>
+
         <script>
             $(document).ready(function() {
+                var columnCount = $('#sales-table thead tr th').length;
+
                 $('#sales-table').DataTable({
-                    responsive: true,
-                    pageLength: 10,
+                    paging: false,
+                    info: false,
+                    searching: true,
+                    ordering: true,
                     language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json'
-                    }
+                        search: "Cari : ",
+                        searchPlaceholder: "Ketik untuk mencari..."
+                    },
+                    columnDefs: columnCount > 5 ? [{
+                        "orderable": false,
+                        "targets": -1
+                    }] : []
                 });
             });
         </script>

@@ -138,7 +138,7 @@
                             },
                             options: {
                                 responsive: true,
-                                indexAxis: 'y', // Horizontal bars untuk label item yang panjang
+                                indexAxis: 'y', 
                                 plugins: {
                                     legend: {
                                         display: false
@@ -146,7 +146,10 @@
                                 },
                                 scales: {
                                     x: {
-                                        beginAtZero: true
+                                        beginAtZero: true,
+                                        ticks: {
+                                            stepSize: 1 
+                                        }
                                     }
                                 }
                             }
