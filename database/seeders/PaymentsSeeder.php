@@ -29,7 +29,7 @@ class PaymentsSeeder extends Seeder
             // Tentukan jumlah bayar berdasarkan status
             if ($sale->status === 'Belum Dibayar Sepenuhnya') {
                 // Bayar 50-80% dari total (pastikan tidak 100%)
-                $persentase = rand(50, 80) / 100;
+                $persentase = 100;
                 $jumlahBayar = (int)($sale->total_harga * $persentase);
             } else { // 'Sudah Dibayar'
                 // Bayar 100% dari total

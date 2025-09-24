@@ -38,7 +38,7 @@ class SalesSeeder extends Seeder
                     'tanggal_penjualan' => $tanggal,
                     'status'            => $status,
                     'total_harga'       => 0,
-                    'user_id'           => $user->id // Pastikan user ini
+                    'user_id'           => $user->id 
                 ]);
 
                 // Buat items untuk sale ini
