@@ -77,7 +77,8 @@
                     <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">
                         Email <span class="text-red-500">*</span>
                     </label>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}"
+                    <input type="email" name="email" id="email"
+                        value="{{ old('email', request()->cookie('remember_email')) }}"
                         class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('email') border-red-500 ring-2 ring-red-200 @enderror"
                         placeholder="you@example.com" required autofocus>
                     @error('email')
@@ -113,7 +114,8 @@
                 <!-- Remember Me -->
                 <div class="flex items-center">
                     <input id="remember" name="remember" type="checkbox"
-                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        {{ request()->cookie('remember_email') ? 'checked' : '' }}>
                     <label for="remember" class="ml-2 block text-sm text-slate-700">Ingat saya</label>
                 </div>
 

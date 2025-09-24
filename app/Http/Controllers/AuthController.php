@@ -7,14 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     /**
      * Show the form for login.
      */
-    public function loginPage()
+    public function loginPage(Request $request)
     {
         return view('auth.login');
     }
@@ -51,9 +50,18 @@ class AuthController extends Controller
 
             if (Auth::attempt($credentials, $remember)) {
                 $request->session()->regenerate();
-                return redirect()
+
+                $response = redirect()
                     ->intended(route('dashboard'))
                     ->with('success', 'Berhasil login!');
+
+                // Simpan email ke cookie kalau "ingat saya" dicentang
+                if ($remember) {
+                    return $response->withCookie(cookie('remember_email', $credentials['email'], 43200));
+                } else {
+                    // hapus cookie kalau tidak dicentang
+                    return $response->withCookie(cookie()->forget('remember_email'));
+                }
             }
 
             return redirect()
