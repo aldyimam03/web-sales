@@ -112,10 +112,10 @@
 
             /* Isi tabel */
             /* #users-table tbody td {
-                text-align: center !important;
-                vertical-align: middle !important;
-                padding: 12px;
-            } */
+                    text-align: center !important;
+                    vertical-align: middle !important;
+                    padding: 12px;
+                } */
 
             /* Search box styling */
             .dataTables_filter {
@@ -140,12 +140,9 @@
                 outline: none;
                 transition: all 0.2s;
             }
-
-            .dataTables_filter input:focus {
-                border-color: #3b82f6;
-                /* blue-500 */
-                box-shadow: 0 0 0 2px #bfdbfe;
-                /* ring-blue-200 */
+            .dataTables_wrapper .dataTables_filter {
+                float: left !important;
+                text-align: left !important;
             }
         </style>
 
@@ -154,7 +151,7 @@
                 var columnCount = $('#users-table thead tr th').length;
 
                 $('#users-table').DataTable({
-                    paging: false, 
+                    paging: false,
                     info: false,
                     searching: true,
                     ordering: true,

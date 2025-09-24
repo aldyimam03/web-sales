@@ -24,7 +24,7 @@
             </div>
         </div>
     @endif
-    
+
     <div class="max-w-4xl mx-auto">
         <div class="mb-8 text-center">
             <h1 class="text-3xl font-bold text-slate-800 mb-2">Edit Penjualan</h1>
@@ -37,22 +37,24 @@
                 @method('PUT')
 
                 <div>
-                    <label class="block text-sm font-semibold">Kode</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Kode Penjualan</label>
                     <input type="text" value="{{ $sale->kode_penjualan }}"
-                        class="w-full px-4 py-3 border rounded-xl bg-slate-100" readonly>
+                        class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600"
+                        readonly>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-semibold">Tanggal</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Tanggal Penjualan</label>
                     <input type="date" name="tanggal_penjualan"
                         value="{{ $sale->tanggal_penjualan->toDateString() }}"
-                        class="w-full px-4 py-3 border rounded-xl">
+                        class="w-full px-4 py-3 border border-slate-300 rounded-xl">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-semibold">Status</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Status</label>
                     <input type="text" value="{{ $sale->status }}"
-                        class="w-full px-4 py-3 border rounded-xl bg-slate-100" readonly>
+                        class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600"
+                        readonly>
                 </div>
 
                 @if ($sale->status == 'Belum Dibayar')
@@ -63,18 +65,26 @@
                         <label class="block text-sm font-semibold text-slate-700 mb-2">Total Penjualan</label>
                         <input type="text" id="grand-total" name="total_harga" value="{{ $sale->total_harga }}"
                             readonly
-                            class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-700 font-semibold">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600">
                     </div>
                 @else
                     <p class="text-red-600">Penjualan ini sudah dibayar dan tidak bisa diubah.</p>
                 @endif
 
-                <div class="flex justify-between pt-6">
-                    <a href="{{ route('sales.index') }}" class="px-6 py-3 bg-slate-100 rounded-xl">Kembali</a>
-                    @if ($sale->status == 'Belum Dibayar')
-                        <button type="submit"
-                            class="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700">Update</button>
-                    @endif
+                <!-- Tombol -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-200">
+                    <a href="{{ route('sales.index') }}"
+                        class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-slate-100 text-slate-700 font-medium rounded-xl hover:bg-slate-200">
+                        Kembali
+                    </a>
+                    <button type="submit"
+                        class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-amber-500 text-white font-medium rounded-xl hover:bg-amber-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                        Update Penjualan
+                    </button>
                 </div>
             </form>
         </div>

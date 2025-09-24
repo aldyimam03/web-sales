@@ -32,7 +32,7 @@
                 <p class="text-slate-600">List semua transaksi pembayaran di sistem</p>
             </div>
             <a href="{{ route('payments.create') }}"
-                class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 shadow-md">
+                class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
@@ -177,11 +177,9 @@
                 transition: all 0.2s;
             }
 
-            .dataTables_filter input:focus {
-                border-color: #3b82f6;
-                /* blue-500 */
-                box-shadow: 0 0 0 2px #bfdbfe;
-                /* ring-blue-200 */
+            .dataTables_wrapper .dataTables_filter {
+                float: left !important;
+                text-align: left !important;
             }
         </style>
 

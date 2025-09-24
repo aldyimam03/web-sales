@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Tanggal Penjualan</label>
                     <input type="date" name="tanggal_penjualan" value="{{ now()->toDateString() }}"
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+                        class="w-full px-4 py-3 border border-slate-300 rounded-xl ">
                 </div>
 
                 <!-- Status -->
@@ -57,13 +57,21 @@
                 </div>
 
                 <!-- Actions -->
-                <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-200">
+                <div class="flex flex-col sm:flex-row gap-4 pt-6">
                     <a href="{{ route('sales.index') }}"
-                        class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200">
+                        class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-slate-100 text-slate-700 font-medium rounded-xl hover:bg-slate-200 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
                         Kembali
                     </a>
                     <button type="submit"
-                        class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 shadow-lg">
+                        class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
                         Simpan Penjualan
                     </button>
                 </div>

@@ -189,12 +189,9 @@
                 outline: none;
                 transition: all 0.2s;
             }
-
-            .dataTables_filter input:focus {
-                border-color: #3b82f6;
-                /* blue-500 */
-                box-shadow: 0 0 0 2px #bfdbfe;
-                /* ring-blue-200 */
+            .dataTables_wrapper .dataTables_filter {
+                float: left !important;
+                text-align: left !important;
             }
         </style>
 

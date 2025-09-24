@@ -43,7 +43,7 @@
                                 class="w-28 text-center border rounded-lg bg-slate-50 total-input">
                         </td>
                         <td class="p-3 text-center">
-                            <button type="button" class="text-red-600 hover:text-red-800 remove-row">✕</button>
+                            <button type="button" class="text-red-600 hover:text-red-800 remove-row cursor-pointer">✕</button>
                         </td>
                     </tr>
                     @php $rowIndex = $index+1; @endphp

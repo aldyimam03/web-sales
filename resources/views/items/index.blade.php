@@ -67,8 +67,8 @@
                                     {{ $loop->iteration + $items->perPage() * ($items->currentPage() - 1) }}
                                 </td>
                                 <td class="px-6 py-4">{{ $item->kode }}</td>
-                                <td class="px-6 py-4">{{ $item->nama }}</td>
-                                <td class="px-6 py-4">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+                                <td class="px-6 py-4 text-left">{{ $item->nama }}</td>
+                                <td class="px-6 py-4 text-right">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                                 <td class="px-6 py-4 flex justify-center">
                                     @if ($item->gambar)
                                         <img src="{{ $item->gambar_url }}"
@@ -135,13 +135,6 @@
                 padding: 12px;
             }
 
-            /* Isi tabel */
-            #items-table tbody td {
-                text-align: center !important;
-                vertical-align: middle !important;
-                padding: 12px;
-            }
-
             /* Search box styling */
             .dataTables_filter {
                 margin-bottom: 1rem;
@@ -166,11 +159,9 @@
                 transition: all 0.2s;
             }
 
-            .dataTables_filter input:focus {
-                border-color: #3b82f6;
-                /* blue-500 */
-                box-shadow: 0 0 0 2px #bfdbfe;
-                /* ring-blue-200 */
+            .dataTables_wrapper .dataTables_filter {
+                float: left !important;
+                text-align: left !important;
             }
         </style>
 

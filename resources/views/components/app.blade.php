@@ -71,7 +71,7 @@
 
         <!-- Header -->
         <div class="flex items-center justify-between p-6 border-b border-slate-200">
-            <h1 class="text-xl font-bold text-slate-800">My App</h1>
+            <img src="{{ asset('images/logo-web-sales.png') }}" alt="logo">
             <button id="close-sidebar" class="lg:hidden text-slate-500 hover:text-slate-700">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">

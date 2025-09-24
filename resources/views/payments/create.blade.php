@@ -1,5 +1,7 @@
 <x-app>
 
+
+
     <!-- Flash Messages -->
     @if (session('success'))
         <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-400 rounded-lg fade-in">
@@ -25,72 +27,102 @@
         </div>
     @endif
 
-    <div class="max-w-3xl mx-auto">
-        <h1 class="text-2xl font-bold mb-6">Tambah Pembayaran</h1>
+    <div class="p-6 fade-in">
+        <div class="max-w-4xl mx-auto">
 
-        <form action="{{ route('payments.store') }}" method="POST" class="space-y-6">
-            @csrf
 
-            <!-- Pilih Penjualan -->
-            <div>
-                <label class="block text-sm font-semibold mb-2">Pilih Penjualan</label>
-                <select name="sale_id" id="sale-select" class="w-full border rounded-lg px-3 py-2" required>
-                    @foreach ($sales as $sale)
-                        <option value="{{ $sale->id }}" data-total="{{ $sale->total_harga }}"
-                            data-paid="{{ $sale->total_dibayar }}">
-                            {{ $sale->kode_penjualan }}
-                        </option>
-                    @endforeach
-                </select>
+            <!-- Header -->
+            <div class="mb-8 text-center">
+                <h1 class="text-3xl font-bold text-slate-800 mb-2">Tambah Pembayaran</h1>
+                <p class="text-slate-600">Perbarui transaksi pembayaran</p>
             </div>
 
-            <!-- Total Penjualan -->
-            <div>
-                <label class="block text-sm font-semibold mb-2">Total Penjualan</label>
-                <input type="text" id="total-penjualan" readonly
-                    class="w-full border rounded-lg px-3 py-2 bg-slate-100 text-slate-700 font-medium">
-            </div>
+            <!-- Form Card -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 fade-in">
 
-            <!-- Sudah Terbayar -->
-            <div>
-                <label class="block text-sm font-semibold mb-2">Sudah Terbayar</label>
-                <input type="text" id="sudah-terbayar" readonly
-                    class="w-full border rounded-lg px-3 py-2 bg-slate-100 text-slate-700 font-medium">
-            </div>
+                <form action="{{ route('payments.store') }}" method="POST" class="space-y-6">
+                    @csrf
 
-            <!-- Sisa -->
-            <div>
-                <label class="block text-sm font-semibold mb-2">Sisa Pembayaran</label>
-                <input type="text" id="sisa-bayar" readonly
-                    class="w-full border rounded-lg px-3 py-2 bg-slate-100 text-slate-700 font-medium">
-            </div>
+                    <!-- Pilih Penjualan -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Pilih Penjualan</label>
+                        <select name="sale_id" id="sale-select"
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl text-slate-600" required>
+                            @foreach ($sales as $sale)
+                                <option value="{{ $sale->id }}" data-total="{{ $sale->total_harga }}"
+                                    data-paid="{{ $sale->total_dibayar }}">
+                                    {{ $sale->kode_penjualan }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-            <!-- Tanggal Bayar -->
-            <div>
-                <label class="block text-sm font-semibold mb-2">Tanggal Bayar</label>
-                <input type="date" name="tanggal_bayar" value="{{ now()->toDateString() }}"
-                    class="w-full border rounded-lg px-3 py-2" required>
-            </div>
+                    <!-- Total Penjualan -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Total Penjualan</label>
+                        <input type="text" id="total-penjualan" readonly
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600">
+                    </div>
 
-            <!-- Jumlah Bayar -->
-            <div>
-                <label class="block text-sm font-semibold mb-2">Jumlah Dibayar</label>
-                <input type="number" step="0.01" name="jumlah" class="w-full border rounded-lg px-3 py-2 no-spinner" required>
-            </div>
+                    <!-- Sudah Terbayar -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Sudah Terbayar</label>
+                        <input type="text" id="sudah-terbayar" readonly
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600">
+                    </div>
 
-            <!-- Catatan -->
-            <div>
-                <label class="block text-sm font-semibold mb-2">Catatan</label>
-                <textarea name="catatan" class="w-full border rounded-lg px-3 py-2"></textarea>
-            </div>
+                    <!-- Sisa -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Sisa Pembayaran</label>
+                        <input type="text" id="sisa-bayar" readonly
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600">
+                    </div>
 
-            <!-- Tombol -->
-            <div class="flex justify-between">
-                <a href="{{ route('payments.index') }}" class="px-6 py-3 bg-slate-100 rounded-xl">Kembali</a>
-                <button type="submit"
-                    class="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700">Simpan</button>
+                    <!-- Tanggal Bayar -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Tanggal Bayar</label>
+                        <input type="date" name="tanggal_bayar" value="{{ now()->toDateString() }}"
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600"
+                            required>
+                    </div>
+
+                    <!-- Jumlah Bayar -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Jumlah Dibayar</label>
+                        <input type="number" step="0.01" name="jumlah"
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl text-slate-600 no-spinner"
+                            required>
+                    </div>
+
+                    <!-- Catatan -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Catatan</label>
+                        <textarea name="catatan" class="w-full border rounded-lg px-3 py-2"></textarea>
+                    </div>
+
+                    <!-- Tombol -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                        <a href="{{ route('payments.index') }}"
+                            class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-slate-100 text-slate-700 font-medium rounded-xl hover:bg-slate-200 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            Kembali
+                        </a>
+                        <button type="submit"
+                            class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7">
+                                </path>
+                            </svg>
+                            Simpan Pembayaran
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 
     <script>

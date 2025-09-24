@@ -75,12 +75,24 @@
             </div>
 
             <!-- Tombol -->
-            <div class="flex justify-end">
-                <a href="{{ route('users.index') }}"
-                    class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 mr-3">Batal</a>
-                <button type="submit"
-                    class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-md">Simpan</button>
-            </div>
+            <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                    <a href="{{ route('users.index') }}"
+                        class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-slate-100 text-slate-700 font-medium rounded-xl hover:bg-slate-200 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Kembali
+                    </a>
+                    <button type="submit"
+                        class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                        Simpan User
+                    </button>
+                </div>
         </form>
     </div>
 </x-app>
