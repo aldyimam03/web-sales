@@ -39,14 +39,16 @@
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Kode Penjualan</label>
                     <input type="text" value="{{ $payment->sale->kode_penjualan }}"
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600 font-medium" readonly>
+                        class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600 font-medium"
+                        readonly>
                 </div>
 
                 <!-- Total Penjualan -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Total Penjualan</label>
                     <input type="text" value="Rp {{ number_format($payment->sale->total_harga, 0, ',', '.') }}"
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600 font-medium" readonly>
+                        class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600 font-medium"
+                        readonly>
                 </div>
 
                 <!-- Sudah Terbayar -->
@@ -56,7 +58,8 @@
                         $sudahTerbayar = $payment->sale->payments()->sum('jumlah');
                     @endphp
                     <input type="text" value="Rp {{ number_format($sudahTerbayar, 0, ',', '.') }}"
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600 font-medium" readonly>
+                        class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600 font-medium"
+                        readonly>
                 </div>
 
                 <!-- Sisa Pembayaran -->
@@ -66,7 +69,8 @@
                         $sisa = $payment->sale->total_harga - $sudahTerbayar;
                     @endphp
                     <input type="text" value="Rp {{ number_format($sisa, 0, ',', '.') }}"
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600 font-medium" readonly>
+                        class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600 font-medium"
+                        readonly>
                 </div>
 
                 <!-- Tanggal Bayar -->
@@ -80,8 +84,10 @@
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Jumlah</label>
                     <input type="number" step="0.01" name="jumlah" value="{{ $payment->jumlah }}"
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl" required>
-                    <p class="text-xs text-slate-500 mt-1">Maksimal: Rp {{ number_format($sisa, 0, ',', '.') }}</p>
+                        max="{{ $maxBayar }}" class="w-full px-4 py-3 border border-slate-300 rounded-xl" required>
+                    <p class="text-xs text-slate-500 mt-1">
+                        Maksimal: Rp {{ number_format($maxBayar, 0, ',', '.') }}
+                    </p>
                 </div>
 
                 <!-- Catatan -->
