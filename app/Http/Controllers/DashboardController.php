@@ -10,20 +10,26 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Sale::query();
+        $allSalesQuery = Sale::query();
+
+        $paidSalesQuery = Sale::query()->where('status', 'Sudah Dibayar');
 
         if ($request->filled('start_date') && $request->filled('end_date')) {
-            $query->whereBetween('tanggal_penjualan', [$request->start_date, $request->end_date]);
+            $allSalesQuery->whereBetween('tanggal_penjualan', [$request->start_date, $request->end_date]);
+            $paidSalesQuery->whereBetween('tanggal_penjualan', [$request->start_date, $request->end_date]);
         }
 
-        $sales = $query->with('items.item')->get();
+        // Eksekusi query
+        $allSales = $allSalesQuery->with('items.item')->get();
+        $paidSales = $paidSalesQuery->with('items.item')->get();
 
-        // Widgets
-        $totalTransactions = $sales->count();
-        $totalRevenue = $sales->sum('total_harga');
-        $totalQty = $sales->flatMap(fn($s) => $s->items)->sum('quantity');
+        // Widget
+        $totalTransactions = $allSales->count();
+        $totalRevenue = $paidSales->sum('total_harga'); 
+        $totalQty = $paidSales->flatMap(fn($s) => $s->items)->sum('quantity'); 
 
-        $revenueByMonth = $sales->groupBy(function ($sale) {
+        // Chart: Revenue per bulan (hanya yang sudah dibayar)
+        $revenueByMonth = $paidSales->groupBy(function ($sale) {
             return \Carbon\Carbon::parse($sale->tanggal_penjualan)->format('Y-m');
         })->map(function ($monthSales) {
             return $monthSales->sum('total_harga');
@@ -43,8 +49,8 @@ class DashboardController extends Controller
             ];
         }
 
-        // Chart: Qty by Item 
-        $qtyByItem = $sales->flatMap(function ($sale) {
+        // Chart: Qty per Item (hanya yang sudah dibayar)
+        $qtyByItem = $paidSales->flatMap(function ($sale) {
             return $sale->items->map(function ($item) {
                 return [
                     'item_name' => $item->item->nama ?? 'Item Tidak Diketahui',
@@ -67,10 +73,6 @@ class DashboardController extends Controller
                 'data' => $qtyByItem->values()->toArray(),
             ];
         }
-
-        // Debug final data
-        logger('Revenue by Month: ' . json_encode($revenueByMonth));
-        logger('Qty by Item: ' . json_encode($qtyByItem));
 
         return view('dashboard.index', compact(
             'totalTransactions',
