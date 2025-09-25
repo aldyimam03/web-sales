@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -80,22 +82,37 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
         try {
+            $user = Auth::user(); // ambil user login
+
             $validated = $request->validate([
-                'name'  => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email,' . $user->id,
+                'name'     => 'required|string|max:255',
+                'email'    => 'required|email|unique:users,email,' . $user->id,
                 'password' => 'nullable|min:6|confirmed',
+                'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             ]);
 
+            // password baru (opsional)
             if (!empty($validated['password'])) {
                 $validated['password'] = Hash::make($validated['password']);
             } else {
-                unset($validated['password']); 
+                unset($validated['password']);
             }
 
+            // foto profil (opsional)
+            if ($request->hasFile('profile_photo')) {
+                // hapus foto lama kalau ada
+                if ($user->profile_photo_url && Storage::exists(str_replace('storage/', '', $user->profile_photo_url))) {
+                    Storage::delete(str_replace('storage/', '', $user->profile_photo_url));
+                }
 
+                $path = $request->file('profile_photo')->store('profile_photos', 'public');
+                $validated['profile_photo_url'] = 'storage/' . $path; 
+            }
+
+            // sekarang isi user dengan data baru
             $user->fill($validated);
 
             if (!$user->isDirty()) {
@@ -107,13 +124,16 @@ class UserController extends Controller
 
             $user->save();
 
-            return redirect()->route('users.index')->with('success', 'User berhasil diperbarui!');
+            return redirect()
+                ->route('dashboard')
+                ->with('success', 'Profil berhasil diperbarui!');
         } catch (\Throwable $th) {
             return redirect()
-                ->route('users.index')
-                ->with('error', $th->getMessage());
+                ->back()
+                ->with('error', 'Gagal update profil: ' . $th->getMessage());
         }
     }
+
 
     /**
      * Remove the specified resource from storage.

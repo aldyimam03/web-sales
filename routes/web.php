@@ -18,6 +18,9 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
 
+    Route::get('profile', [AuthController::class, 'profile'])->name('profile');
+    Route::put('profile', [UserController::class, 'update'])->name('profile.update');
+
     Route::get('dashboard', [DashboardController::class, 'index'])
         ->name('dashboard')
         ->middleware('permission:dashboard.view');

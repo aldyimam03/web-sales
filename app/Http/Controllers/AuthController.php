@@ -100,4 +100,16 @@ class AuthController extends Controller
                 ->with('error', 'Terjadi kesalahan saat logout!');
         }
     }
+    public function profile()
+    {
+        try {
+            return view('auth.profile');
+        } catch (\Throwable $th) {
+            Log::error('Profile error: ' . $th->getMessage());
+
+            return redirect()
+                ->back()
+                ->with('error', 'Terjadi kesalahan saat menampilkan profile!');
+        }
+    }
 }
